@@ -1,0 +1,29 @@
+name: Go Test
+
+on:
+  push:
+    paths:
+      - 'math.go'
+      - 'math_test.go'
+  pull_request:
+    paths:
+      - 'math.go'
+      - 'math_test.go'
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Go
+      uses: actions/setup-go@v4
+      with:
+        go-version: '1.23.2'  # Cambia a tu versión de Go
+
+    - name: Run tests
+      run: |
+        go mod tidy      # Instala dependencias si las hay
+        go test ./... -v
